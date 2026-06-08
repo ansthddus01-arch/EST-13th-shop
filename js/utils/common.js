@@ -45,6 +45,7 @@ export function addToCart(product, qty = 1) {
       brand: product.brand,
       thumb: product.thumbnail,
       qty: qty,
+      price: product.price,
     });
   }
   writeCart(cart);
