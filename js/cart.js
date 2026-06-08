@@ -30,6 +30,6 @@ function cartList(all, brand, id) {
     `,
   );
 
-  document.querySelector(".cart-list").innerHTML = cartHTML.join("");
+  document.querySelector(".cart-list").innerHTML += cartHTML.join("");
 }
 cartList();
