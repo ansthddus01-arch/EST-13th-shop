@@ -8,11 +8,11 @@ export async function fetchProduct() {
   let params = new URLSearchParams(location.search);
   //console.log(params.get("id")); // 3
   const productID = params.get("id"); //3
+  //console.log(typeof productID);  //string
   if (!productID) {
-    alert("잘못된 접근입니다. 홈으로 이동하겠습니다");
+    alert("잘못된 접근입니다. 홈으로 이동하겠습니다.");
     location.href = "./index.html";
   }
-  //console.log(typeof productID);  //string
   try {
     const res = await fetch("./data/products.json");
     if (!res.ok) throw new Error("로딩에 실패했습니다.");
@@ -21,7 +21,7 @@ export async function fetchProduct() {
     //조회된 상품정보에서 상품의 id가 productID와 일치하는 요소를 변수 product 할당
     product = data.products.find(p => p.id === Number(productID));
     if (!product) {
-      alert("존재하지 않는 상품입니다");
+      alert("존재하지 않는 상품입니다.");
       location.href = "./index.html";
     }
     createContent(product);
@@ -56,8 +56,26 @@ function createContent(data) {
 }
 
 //상품 상세 tab
-const detail_tab_menus = "";
-const detail_tab_contents = "";
+const detail_tab_menus = document.querySelectorAll(".detail-tabs a");
+const detail_tab_contents = document.querySelectorAll(".detail-content");
+
+detail_tab_menus.forEach(item => {
+  item.addEventListener("click", e => {
+    e.preventDefault();
+
+    detail_tab_menus.forEach(m => {
+      m.classList.remove("active");
+    });
+    e.target.classList.add("active");
+
+    detail_tab_contents.forEach(dc => {
+      dc.classList.remove("active");
+    });
+
+    let target = e.target.getAttribute("href");
+    document.querySelector(target).classList.add("active");
+  });
+});
 
 function createRecommendLists(all, category, id) {
   const recommendList = all.filter(p => p.category === category && p.id !== id).slice(0, 4);
