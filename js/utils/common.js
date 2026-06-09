@@ -42,10 +42,10 @@ export function addToCart(product, qty = 1) {
     cart.push({
       id: product.id,
       title: product.title,
+      price: product.price,
       brand: product.brand,
       thumb: product.thumbnail,
       qty: qty,
-      price: product.price,
     });
   }
   writeCart(cart);
